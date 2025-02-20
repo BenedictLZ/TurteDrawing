@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Turtle drawing</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+
+<body>
+    <div id="split">
+        <div id="sideboard" class="frame">
+            <div>
+                <div class="btn-container">
+                    <button id="triangle-btn" class="btn">Triangle</button>
+                </div>
+                <div class="btn-container">
+                    <button id="tree-btn" class="btn">Tree</button>
+                </div>
+            </div>
+            <div>
+                <div class="btn-container">
+                    <div class="btn-description">Speed in px/s</div>
+                    <input id="speed-input" type="text" class="btn" value="1000" />
+                </div>
+                <div class="btn-container">
+                    <div class="btn-description">Draws immediately</div>
+                    <button id="immediate-btn" class="btn">Immediate</button>
+                </div>
+                <div class="btn-container">
+                    <div class="btn-description">Clears the canvas</div>
+                    <button id="clear-btn" class="btn">Clear</button>
+                </div>
+            </div>
+        </div>
+        <canvas id="main-canvas" class="frame"></canvas>
+    </div>
+</body>
+<script type="module" src="./main.js"></script>
+
+</html>
