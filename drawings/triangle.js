@@ -1,8 +1,6 @@
-import { move, line, getCenter } from "../turtle.js";
-
 const DEPTH = 5;
 
-export function triangle() {
+function triangle() {
     const center = getCenter();
     recursion(center.x, center.y - 300, 300, 300);
 }

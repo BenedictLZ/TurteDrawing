@@ -8,11 +8,21 @@ const pos = { x: 0, y: 0 };
 let animationSpeed = 1000;
 let immediateDrawing = false;
 
+let direction = 0; // Direction in degrees, 0 is to the right
+
+/**
+ * If set to true, all further line drawings will happen immediately.
+ * @param {number} angle 
+ */
+function setDirection(angle) {
+    direction = angle % 360
+}
+
 /**
  * 
  * @returns the center of the screen
  */
-export function getCenter() {
+function getCenter() {
     return { x: canvas.width / 2, y: canvas.height / 2 };
 }
 
@@ -20,7 +30,7 @@ export function getCenter() {
  * Specifies the amount of pixel it can draw in one second.
  * @param {number} length 
  */
-export function setAnimationSpeed(length) {
+function setAnimationSpeed(length) {
     animationSpeed = length;
 }
 
@@ -28,7 +38,7 @@ export function setAnimationSpeed(length) {
  * 
  * @returns the current value for the animation speed
  */
-export function getAnimationSpeed() {
+function getAnimationSpeed() {
     return animationSpeed;
 }
 
@@ -36,7 +46,7 @@ export function getAnimationSpeed() {
  * If set to true, all further line drawings will happen immediately.
  * @param {boolean} enable 
  */
-export function setImmediate(enable) {
+function setImmediate(enable) {
     immediateDrawing = enable;
 }
 
@@ -44,14 +54,14 @@ export function setImmediate(enable) {
  * 
  * @returns if immediate drawing is enabled
  */
-export function isImmediate() {
+function isImmediate() {
     return immediateDrawing;
 }
 
 /**
  * Clears the canvas.
  */
-export function clear() {
+function clear() {
     ctx.reset();
 }
 
@@ -60,9 +70,37 @@ export function clear() {
  * @param {number} x 
  * @param {number} y 
  */
-export function move(x, y) {
+function move(x, y) {
     pos.x = x;
     pos.y = y;
+}
+
+/**
+ * Moves the turtle forward by a specified number of pixels.
+ */
+async function moveForward(pixels, color) {
+    const toX = pos.x + pixels * Math.cos(direction * (Math.PI / 180));
+    const toY = pos.y + pixels * Math.sin(direction * (Math.PI / 180));
+    await line(toX, toY, color);
+    move(toX, toY);
+}
+
+/**
+ * Moves the turtle backward by a specified number of pixels.
+ */
+async function moveBack(pixels, color) {
+    const toX = pos.x - pixels * Math.cos(direction * (Math.PI / 180));
+    const toY = pos.y - pixels * Math.sin(direction * (Math.PI / 180));
+    await line(toX, toY, color);
+    move(toX, toY);
+}
+
+/**
+ * Turns the turtle by a specified number of degrees.
+ * @param {number} degrees 
+ */
+function turn(degrees) {
+    direction = (direction + degrees) % 360; // Keep direction within 0-359 degrees
 }
 
 /**
@@ -71,7 +109,7 @@ export function move(x, y) {
  * @param {number} toY 
  * @param {string} color default: red
  */
-export async function line(toX, toY, color = "red") {
+async function line(toX, toY, color = "red") {
     ctx.strokeStyle = color;
     if (immediateDrawing) {
         ctx.beginPath();

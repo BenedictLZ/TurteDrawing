@@ -1,9 +1,7 @@
-import { getCenter, move, line } from "../turtle.js";
-
 const STEP_SIZE = 75;
 const COLORS = ["rgb(255,42,0)", "rgb(255,85,0)", "rgb(229,115,0)", "rgb(229,115,0)", "rgb(218,182,0)", "rgb(220,220,0)", "rgb(180,215,0)", "rgb(117,177,0)", "rgb(70,141,0)", "rgb(70,141,0)", "white"];
 
-export function tree() {
+function tree() {
     const center = getCenter();
     const x = center.x;
     const y = center.y + 300;
